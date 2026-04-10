@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Python Assessment Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1><a href="{{ url_for('index') }}">Python Assessment</a></h1>
+            <ul>
+                {% if g.user %}
+                    <li><span>Hello, {{ g.user['username'] }}!</span></li>
+                    <li><a href="{{ url_for('test') }}">Take Test</a></li>
+                    <li><a href="{{ url_for('result') }}">View Scores</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('login') }}">Log In</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; {{ moment().format('YYYY') }} Python Assessment Platform</p>
+    </footer>
+    {{ moment.include_moment() }} {# Add this line #}
+    {{ moment.locale('en') }}    {# Optional: Set locale #}
+</body>
+</html>

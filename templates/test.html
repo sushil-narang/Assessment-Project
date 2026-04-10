@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Take Test{% endblock %}
+
+{% block content %}
+    <div class="container test-page">
+        <h2>Python Programming Assessment</h2>
+        <p>Answer all 20 questions below. Good luck!</p>
+        <form method="post" action="{{ url_for('test') }}">
+            {% for q in questions %}
+                <div class="question-block">
+                    <h3>{{ loop.index }}. {{ q.question }}</h3>
+                    <div class="options">
+                        {% for option in q.options %}
+                            <label>
+                                <input type="radio" name="question_{{ q.id }}" value="{{ option }}" required>
+                                {{ option }}
+                            </label><br>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn primary-btn submit-test-btn">Submit Test</button>
+        </form>
+    </div>
+{% endblock %}

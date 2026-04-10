@@ -1,0 +1,22 @@
+<elevenlabs-convai agent-id="agent_9201knkxjh11fzntzvsz7er2t4cn"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+{% extends 'base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Welcome to the Python Programming Assessment Platform!</h2>
+        <p>Test your Python knowledge with our MCQ-based assessment.</p>
+        {% if g.user %}
+            <p>You are currently logged in as <strong>{{ g.user['username'] }}</strong>.</p>
+            <p><a href="{{ url_for('test') }}" class="btn primary-btn">Start Test</a></p>
+            <p><a href="{{ url_for('result') }}" class="btn secondary-btn">View Your Scores</a></p>
+        {% else %}
+            <p>Please <a href="{{ url_for('register') }}">register</a> or <a href="{{ url_for('login') }}">log in</a> to take the assessment.</p>
+            <p>
+                <a href="{{ url_for('register') }}" class="btn primary-btn">Register</a>
+                <a href="{{ url_for('login') }}" class="btn secondary-btn">Log In</a>
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

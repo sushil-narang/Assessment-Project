@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Scores{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Your Assessment Scores</h2>
+        {% if scores %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Attempt Date</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for score in scores %}
+                        <tr>
+                            <td>{{ score.date_attempted }}</td>
+                            <td>{{ score.score }}/20</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You haven't attempted any tests yet. <a href="{{ url_for('test') }}">Start your first test!</a></p>
+        {% endif %}
+        <p><a href="{{ url_for('index') }}" class="btn secondary-btn">Back to Home</a></p>
+    </div>
+{% endblock %}
