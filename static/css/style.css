@@ -258,6 +258,69 @@ footer {
     font-size: 1.2rem;
 }
 
+/* Quiz Progress */
+.quiz-progress {
+    margin-bottom: 20px;
+}
+
+.quiz-progress #progress-text {
+    font-weight: bold;
+    color: var(--dark-color);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.progress-bar-wrap {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background-color: var(--primary-color);
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* Quiz Navigation */
+.quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    gap: 10px;
+}
+
+.quiz-nav .submit-test-btn {
+    width: auto;
+    margin-top: 0;
+    padding: 10px 30px;
+    font-size: 1rem;
+}
+
+.unanswered-msg {
+    color: var(--danger-color);
+    font-size: 0.95rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.option-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.option-label:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
 /* Result Page */
 table {
     width: 100%;

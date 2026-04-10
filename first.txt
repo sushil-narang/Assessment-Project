@@ -1,0 +1,20 @@
+╭─── Claude Code v2.1.100 ─────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                Welcome back Sushil!                │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│     Sonnet 4.6 · API Usage Billing · Sushil’s      │                         │
+│     Individual Org                                 │                         │
+│     ~/…/claude-projects/python_assessment_app      │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+❯ /exit                                                                         
+  ⎿  Goodbye!
+
+❯ /resume 
+  ⎿  Resume cancelled
+
+❯ /resume 
+  ⎿  Resume cancelled

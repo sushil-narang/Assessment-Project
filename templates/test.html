@@ -5,22 +5,82 @@
 {% block content %}
     <div class="container test-page">
         <h2>Python Programming Assessment</h2>
-        <p>Answer all 20 questions below. Good luck!</p>
-        <form method="post" action="{{ url_for('test') }}">
+        <div class="quiz-progress">
+            <span id="progress-text">Question 1 of {{ questions|length }}</span>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-fill" id="progress-bar" style="width: {{ (1 / questions|length * 100)|round(2) }}%"></div>
+            </div>
+        </div>
+
+        <form method="post" action="{{ url_for('test') }}" id="quiz-form">
             {% for q in questions %}
-                <div class="question-block">
+                <div class="question-block" id="question-{{ loop.index0 }}" style="{{ 'display:none;' if loop.index0 != 0 else '' }}">
                     <h3>{{ loop.index }}. {{ q.question }}</h3>
                     <div class="options">
                         {% for option in q.options %}
-                            <label>
-                                <input type="radio" name="question_{{ q.id }}" value="{{ option }}" required>
+                            <label class="option-label">
+                                <input type="radio" name="question_{{ q.id }}" value="{{ option }}">
                                 {{ option }}
-                            </label><br>
+                            </label>
                         {% endfor %}
                     </div>
+                    <p class="unanswered-msg" id="warn-{{ loop.index0 }}" style="display:none;">Please select an answer before continuing.</p>
                 </div>
             {% endfor %}
-            <button type="submit" class="btn primary-btn submit-test-btn">Submit Test</button>
+
+            <div class="quiz-nav">
+                <button type="button" class="btn secondary-btn" id="prev-btn" onclick="changeQuestion(-1)" disabled>&#8592; Previous</button>
+                <button type="button" class="btn primary-btn" id="next-btn" onclick="changeQuestion(1)">Next &#8594;</button>
+                <button type="submit" class="btn primary-btn submit-test-btn" id="submit-btn" style="display:none;">Submit Test</button>
+            </div>
         </form>
     </div>
+
+    <script>
+        const total = {{ questions|length }};
+        let current = 0;
+
+        function changeQuestion(direction) {
+            const currentBlock = document.getElementById('question-' + current);
+            const radios = currentBlock.querySelectorAll('input[type="radio"]');
+            const answered = Array.from(radios).some(r => r.checked);
+            const warn = document.getElementById('warn-' + current);
+
+            if (direction === 1 && !answered) {
+                warn.style.display = 'block';
+                return;
+            }
+            warn.style.display = 'none';
+
+            currentBlock.style.display = 'none';
+            current += direction;
+
+            document.getElementById('question-' + current).style.display = 'block';
+
+            document.getElementById('progress-text').textContent = 'Question ' + (current + 1) + ' of ' + total;
+            const pct = ((current + 1) / total * 100).toFixed(2);
+            document.getElementById('progress-bar').style.width = pct + '%';
+
+            document.getElementById('prev-btn').disabled = (current === 0);
+
+            if (current === total - 1) {
+                document.getElementById('next-btn').style.display = 'none';
+                document.getElementById('submit-btn').style.display = 'inline-block';
+            } else {
+                document.getElementById('next-btn').style.display = 'inline-block';
+                document.getElementById('submit-btn').style.display = 'none';
+            }
+        }
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            const currentBlock = document.getElementById('question-' + current);
+            const radios = currentBlock.querySelectorAll('input[type="radio"]');
+            const answered = Array.from(radios).some(r => r.checked);
+            const warn = document.getElementById('warn-' + current);
+            if (!answered) {
+                e.preventDefault();
+                warn.style.display = 'block';
+            }
+        });
+    </script>
 {% endblock %}
